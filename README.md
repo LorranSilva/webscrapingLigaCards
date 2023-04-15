@@ -23,7 +23,7 @@ a opção de "disable" se mostra e ao desabilitar o js é só dar um refresh.<br
 Confirmado que alguns elementos da página estão sendo renderizados de modo dinâmico é necessário outra abordagem,
 pois somente pelas TAGs não seria possível obter alguns valores. Para solucionar isto foi necessário utilizar ScrapySplash.</p>
 <br>
-Utilizando o docker para usar o Splash:
+Utilizando o docker para analisar com Splash:
 <li>docker pull scrapinghub/splash</li>
 <li>docker run -it -p 8050:8050 --rm docker.io/scrapinghub/splash</li>
 Ao utiilizar o splash com docker foi possível analisar mais a fundo a página e suas requisições.
@@ -53,7 +53,7 @@ Alguns carácteres salvos no arquivo json estavam encodados. A solução foi adi
 configuração no setup.py.<br>
 FEED = 'json'
 FEED_EXPORT_ENCODING = 'utf-8'
-
+<br>
 ################# EXECUTANDO O PROJETO ####################
 
 Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
