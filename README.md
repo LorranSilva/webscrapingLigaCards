@@ -1,3 +1,7 @@
+O objetivo deste projeto é obter os dados das coleções de cartas da LIgaPokemon, LigaYuGiOh e LigaMagic, utilizando web scraping.
+
+###################### PASSOS ############################
+
 <b>COMO FOI REALIZADO ESTE SCRAPING</b>
 <br>
 <li>1 - Selecionei as URLs que deseja raspar;</li>
