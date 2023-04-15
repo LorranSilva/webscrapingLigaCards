@@ -119,7 +119,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-/scrapcards/*.json
+/scrapcards/datasets
 
 /ligaCard
 

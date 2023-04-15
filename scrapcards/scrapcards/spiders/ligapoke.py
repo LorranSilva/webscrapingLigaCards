@@ -25,13 +25,16 @@ class LigapokeSpider(scrapy.Spider):
         json_string = re.search(r"var cardsjson = (\[.*?\]);", script_text).group(1)
         cards_data = json.loads(json_string)
         collection_page = response.css('.tb-ed')
+        lowest_price = sum(map(lambda x: float(x['precoMenor']), cards_data))
+        highest_price = sum(map(lambda x: float(x['precoMaior']), cards_data))
+        medium_price = (lowest_price + highest_price)/2
         for data in collection_page:
             yield {
                 'name': data.css('b::text').get(),
                 'acronym': data.css('.tb-ed-sigla::text').get(),
-                'cards_quantity': data.css('.tb-cards-count::text').get(),
-                'lowest_price': data.css('.tb-prc-low::text').get(),
-                'avarege_price': data.css('.tb-prc-avg::text').get(),
-                'highest_price': data.css('.tb-prc-max::text').get(),
+                'cards_quantity': len(cards_data),
+                'lowest_price': float(f"{lowest_price:.2f}"),
+                'avarege_price': float(f"{medium_price:.2f}"),
+                'highest_price': float(f"{highest_price:.2f}"),
                 'cards': cards_data
             }

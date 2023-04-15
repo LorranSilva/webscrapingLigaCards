@@ -55,4 +55,4 @@ FEED_EXPORT_ENCODING = 'utf-8'
 
 ################# EXECUTANDO O PROJETO ####################
 
-Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/dataset.
+Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
