@@ -14,11 +14,11 @@
 <b>SOBRE A PÁGINA:</b><br>
 <p>Após identificar os dados de interesse, foi o momento de analisar a anatomia da página (TAGs, Classes CSS, IDs),
 mas o fator principal foi entender que havia uma renderização dinâmica.<br>
-![Visualização Real](webscrapingLigaCards/images/site_normal.png)
+<img src="images/site_normal.png">
 Para fazer a verificação o js foi desativado no navegador, indo ao DevTools do navegador, ctrl+shit+p (Windows, Linux) e digitando "javascript",
 a opção de "disable" se mostra e ao desabilitar o js é só dar um refresh.<br>
 <img src="images/devtools.png"><br>
-![JS Desativado](webscrapingLigaCards/images/site_disable.png)<br>
+<img src="images/site_disable.png"><br>
 Confirmado que alguns elementos da página estão sendo renderizados de modo dinâmico é necessário outra abordagem,
 pois somente pelas TAGs não seria possível obter alguns valores. Para solucionar isto foi necessário utilizar ScrapySplash.</p>
 <br>
