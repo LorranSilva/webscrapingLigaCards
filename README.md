@@ -9,21 +9,29 @@
 <li>3 - Preparei o código;</li>
 <li>4 - Armazenei os dados.</li>
 
-#########################################################################################
+################# ANALISE DA PÁGINA #######################
 
 <b>SOBRE A PÁGINA:</b><br>
 <p>Após identificar os dados de interesse, foi o momento de analisar a anatomia da página (TAGs, Classes CSS, IDs),
 mas o fator principal foi entender que havia uma renderização dinâmica.<br>
-![Visualização Real](images/site_normal.png)
+![Visualização Real](webscrapingLigaCards/images/site_normal.png)
 Para fazer a verificação o js foi desativado no navegador, indo ao DevTools do navegador, ctrl+shit+p (Windows, Linux) e digitando "javascript",
 a opção de "disable" se mostra e ao desabilitar o js é só dar um refresh.<br>
-![Desativando JS](images/devtools.png)<br>
-![JS Desativado](images/site_disable.png)
-Confirmado que alguns elementos da página estão sendo renderizados de modo dinâmico é necessário outra abordagem.
-Para solucionar isto foi necessário utilizar ScrapySplash.</p>
+![Desativando JS](webscrapingLigaCards/images/devtools.png)<br>
+![JS Desativado](webscrapingLigaCards/images/site_disable.png)<br>
+Confirmado que alguns elementos da página estão sendo renderizados de modo dinâmico é necessário outra abordagem,
+pois somente pelas TAGs não seria possível obter alguns valores. Para solucionar isto foi necessário utilizar ScrapySplash.</p>
 <br>
+Utilizando o docker para usar o Splash:
+<li>docker pull scrapinghub/splash</li>
+<li>docker run -it -p 8050:8050 --rm docker.io/scrapinghub/splash</li>
+Ao utiilizar o splash com docker foi possível analisar mais a fundo a página e suas requisições.
+A variável que tratava dos dados mostrados na página foi achada, e dela que alguns valores serão extraídos.
 
-#########################################################################################
+Depois foi feita a instalação do scrapy-splash  para se usar no Spider.
+pip install scrapy-splash
+
+################ PREPARAÇÃO DO CÓDIGO #####################
 
 <b>Iniciando um projeto com Scrapy:</b><br>
 <li>Criando o projeto: scrapy startproject [nome_do_projeto]</li>
@@ -45,7 +53,6 @@ configuração no setup.py.<br>
 FEED = 'json'
 FEED_EXPORT_ENCODING = 'utf-8'
 
-#########################################################################################
+################# EXECUTANDO O PROJETO ####################
 
-EXECUTANDO O PROJETO
-ligaCard/Scripts/Activate.ps1
+Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/dataset.
