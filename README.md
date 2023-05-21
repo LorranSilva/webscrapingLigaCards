@@ -58,6 +58,8 @@ FEED = 'json'
 FEED_EXPORT_ENCODING = 'utf-8'
 <br>
 ################# EXECUTANDO O PROJETO ####################
-
+<br>
+OBS: Não é necessário instalar o scrapy splash ou docker para que se execute este projeto.
+<br>
 Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
 Para cada célula de código haverá um markdown acima, descrevendo a ação de cada script.
