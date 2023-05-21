@@ -34,7 +34,7 @@ class LigapokeSpider(scrapy.Spider):
                 'acronym': data.css('.tb-ed-sigla::text').get(),
                 'cards_quantity': len(cards_data),
                 'lowest_price': float(f"{lowest_price:.2f}"),
-                'avarege_price': float(f"{medium_price:.2f}"),
+                'averege_price': float(f"{medium_price:.2f}"),
                 'highest_price': float(f"{highest_price:.2f}"),
                 'cards': cards_data
             }

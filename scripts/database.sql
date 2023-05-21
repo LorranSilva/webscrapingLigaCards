@@ -1,6 +1,6 @@
 CREATE TABLE game (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(50),
+  name VARCHAR(70),
   acronym VARCHAR(10),
   release_date DATE,
   description TEXT
@@ -9,27 +9,24 @@ CREATE TABLE game (
 CREATE TABLE collection (
 	id SERIAL PRIMARY KEY NOT NULL,
   game_id INT UNIQUE,
-	name VARCHAR(30),
-	acronym VARCHAR(10),
+	name VARCHAR(150),
+	acronym VARCHAR(15),
 	cards_quantity integer,
-	lowest_price decimal(9,2),
-	avarege_price decimal(9,2),
-  highest_price decimal(9,2),
-  FOREIGN KEY (game_id) REFERENCES game (id)
+	lowest_price decimal(13,2),
+	average_price decimal(13,2),
+  highest_price decimal(13,2),
+  FOREIGN KEY (game_id) REFERENCES game (id) ON DELETE CASCADE
 );
+ALTER TABLE collection DROP CONSTRAINT collection_game_id_key;
 
 CREATE TABLE card (
   id SERIAL PRIMARY KEY NOT NULL,
   collection_id INT,
-  name VARCHAR(255),
-  sCor VARCHAR(10),
-  sIlustrador VARCHAR(50),
-  sSigla VARCHAR(10),
-  lowest_price DECIMAL(5, 2),
-  highest_price DECIMAL(5, 2),
-  name_EN VARCHAR(30),
-  name_PT VARCHAR(30),
-  FOREIGN KEY (collection_id) REFERENCES collection (id)
+  lowest_price DECIMAL(13, 2),
+  highest_price DECIMAL(13, 2),
+  name_EN VARCHAR(200),
+  name_PT VARCHAR(200),
+  FOREIGN KEY (collection_id) REFERENCES collection (id) ON DELETE CASCADE
 );
 
 INSERT INTO game(name, acronym, release_date, description) VALUES('Pokemon TCG', 'ptcg', '1996-10-20', 'Pokémon Trading Card Game, ou Pokémon Estampas Ilustradas no Brasil, é um jogo de cartas colecionáveis baseadas na franquia japonesa Pokémon. Publicado pela primeira vez em outubro de 1996, pela Media Factory, no Japão.');
