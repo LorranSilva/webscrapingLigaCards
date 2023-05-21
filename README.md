@@ -61,5 +61,6 @@ FEED_EXPORT_ENCODING = 'utf-8'
 <br>
 OBS: Não é necessário instalar o scrapy splash ou docker para que se execute este projeto.
 <br>
-Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
-Para cada célula de código haverá um markdown acima, descrevendo a ação de cada script.
+Instale os requerimentos, crie seu banco de dados (as definições necessárias estão em scripts/database.sql), e execute o script
+executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets. Para cada célula de código haverá um markdown acima, descrevendo
+a ação de cada script.
