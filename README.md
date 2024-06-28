@@ -1,6 +1,6 @@
 O objetivo deste projeto é obter os dados das coleções de cartas da LIgaPokemon, LigaYuGiOh e LigaMagic, utilizando web scraping.
 
-###################### PASSOS ############################
+###################### DESCRIÇÃO DOS PASSOS DO PROJETO ############################
 
 <b>COMO FOI REALIZADO ESTE SCRAPING</b>
 <br>
@@ -11,7 +11,6 @@ O objetivo deste projeto é obter os dados das coleções de cartas da LIgaPokem
     <li>2.2 - Verifiquei se a página tinha conteúdo dinâmico.</li>
 </ul>
 <li>3 - Preparei o código;</li>
-<li>4 - Armazenei os dados.</li>
 
 ################# ANALISE DA PÁGINA #######################
 
@@ -30,7 +29,7 @@ pois somente pelas TAGs não seria possível obter alguns valores. Para solucion
 Utilizando o docker para analisar com Splash:
 <li>docker pull scrapinghub/splash</li>
 <li>docker run -it -p 8050:8050 --rm docker.io/scrapinghub/splash</li>
-Ao utiilizar o splash com docker foi possível analisar mais a fundo a página e suas requisições.
+Ao utilizar o splash com docker foi possível analisar mais a fundo a página e suas requisições.
 A variável que tratava dos dados mostrados na página foi achada, e dela que alguns valores serão extraídos.
 
 Depois foi feita a instalação do scrapy-splash  para se usar no Spider.
@@ -59,5 +58,9 @@ FEED = 'json'
 FEED_EXPORT_ENCODING = 'utf-8'
 <br>
 ################# EXECUTANDO O PROJETO ####################
-
-Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
+<br>
+OBS: Não é necessário instalar o scrapy splash ou docker para que se execute este projeto.
+<br>
+Instale os requerimentos, crie seu banco de dados (as definições necessárias estão em scripts/database.sql), e execute o script
+executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets. Para cada célula de código haverá um markdown acima, descrevendo
+a ação de cada script.
