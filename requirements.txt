@@ -8,7 +8,7 @@ charset-normalizer==3.0.1
 colorama==0.4.6
 comm==0.1.2
 constantly==15.1.0
-cryptography==39.0.0
+cryptography==44.0.3
 cssselect==1.2.0
 debugpy==1.6.4
 decorator==5.1.1
@@ -49,7 +49,7 @@ pyzmq==24.0.1
 queuelib==1.6.2
 requests==2.28.2
 requests-file==1.5.1
-Scrapy==2.14.2
+Scrapy==2.15.2
 scrapy-splash==0.9.0
 service-identity==21.1.0
 six==1.16.0
