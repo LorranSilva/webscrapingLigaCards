@@ -1,63 +1,112 @@
-O objetivo deste projeto é obter os dados das coleções de cartas da LIgaPokemon, LigaYuGiOh e LigaMagic, utilizando web scraping.
+# WebScraping Liga Cards
 
-###################### PASSOS ############################
+Web scraping das coleções de cartas da **LigaPokemon**, **LigaYuGiOh** e **LigaMagic**, extraindo nome, sigla, quantidade de cartas e faixas de preço de cada coleção.
 
-<b>COMO FOI REALIZADO ESTE SCRAPING</b>
-<br>
-<li>1 - Selecionei as URLs que deseja raspar;</li>
-<li>2 - Inspecionei a página;</li>
-<ul>
-    <li>2.1 - Busquei o que deseja extrair;</li>
-    <li>2.2 - Verifiquei se a página tinha conteúdo dinâmico.</li>
-</ul>
-<li>3 - Preparei o código;</li>
-<li>4 - Armazenei os dados.</li>
+## Tecnologias
 
-################# ANALISE DA PÁGINA #######################
+- Python 3
+- [Scrapy 2.15](https://scrapy.org/) — framework de web scraping
+- [Scrapy-Splash](https://github.com/scrapy-plugins/scrapy-splash) — renderização de páginas com JavaScript
+- [Docker](https://www.docker.com/) — execução do servidor Splash
+- Jupyter Notebook — orquestração dos spiders
 
-<b>SOBRE A PÁGINA:</b><br>
-<p>Após identificar os dados de interesse, foi o momento de analisar a anatomia da página (TAGs, Classes CSS, IDs),
-mas o fator principal foi entender que havia uma renderização dinâmica.<br>
-<img src="images/site_normal.png">
-Para fazer a verificação o js foi desativado no navegador, indo ao DevTools do navegador, ctrl+shit+p (Windows, Linux) e digitando "javascript",
-a opção de "disable" se mostra e ao desabilitar o js é só dar um refresh.<br>
-<img src="images/devtools.png"><br>
-    <p>Após desabilitar o JS:</p><br>
-<img src="images/site_disable.png"><br>
-Confirmado que alguns elementos da página estão sendo renderizados de modo dinâmico é necessário outra abordagem,
-pois somente pelas TAGs não seria possível obter alguns valores. Para solucionar isto foi necessário utilizar ScrapySplash.</p>
-<br>
-Utilizando o docker para analisar com Splash:
-<li>docker pull scrapinghub/splash</li>
-<li>docker run -it -p 8050:8050 --rm docker.io/scrapinghub/splash</li>
-Ao utiilizar o splash com docker foi possível analisar mais a fundo a página e suas requisições.
-A variável que tratava dos dados mostrados na página foi achada, e dela que alguns valores serão extraídos.
+## Estrutura do projeto
 
-Depois foi feita a instalação do scrapy-splash  para se usar no Spider.
-pip install scrapy-splash
+```
+webscrapingLigaCards/
+├── scrapcards/
+│   ├── scrapcards/
+│   │   ├── spiders/
+│   │   │   ├── ligamagic.py   # Spider para LigaMagic (Magic: The Gathering)
+│   │   │   ├── ligapoke.py    # Spider para LigaPokemon
+│   │   │   └── ligaygo.py     # Spider para LigaYuGiOh
+│   │   ├── items.py
+│   │   ├── middlewares.py
+│   │   ├── pipelines.py
+│   │   └── settings.py
+│   └── datasets/
+│       ├── mtg.json           # Dados de Magic: The Gathering
+│       ├── ptcg.json          # Dados de Pokémon TCG
+│       └── ygo.json           # Dados de Yu-Gi-Oh!
+├── notebooks/
+│   └── executer.ipynb         # Notebook para executar os spiders
+├── images/
+├── requirements.txt
+└── README.md
+```
 
-################ PREPARAÇÃO DO CÓDIGO #####################
+## Dados coletados
 
-<b>Iniciando um projeto com Scrapy:</b><br>
-<li>Criando o projeto: scrapy startproject [nome_do_projeto]</li>
-<li>Acessar diretório do projeto: cd [nome_do_projeto]</li>
-<li>Criar o arquivo spider: scrapy genspider [script_name] [example.com]</li><br>
-(Spiders são classes que você define e que o Scrapy usa para coletar informações de um site.)
+Para cada coleção são extraídos:
 
-<b>Alguns comandos do Scrapy usados para testar a solução:</b><br>
-<li>Acessar ambiente de scraping shell para executar comandos: scrapy shell</li>
-<li>Tentar fazer conexao com o site: fetch('[example.com]');</li>
-<li>Testar o resultado de sua busca: response.css('class').get();</li>
-<li>Realizar o crawl: scrapy crawl [nomeprojeto]</li>
-<li>Salvar os resultados em um arquivo:</li>
-<li>scrapy crawl nomeprojeto -O [result.json]</li><br>
-Com -o o arquivo é sempre reescrito. Com -O o arquivo é sobreescrito.
-O formato de arquivo é a sua escolha, neste projeto optei por JSON. PAra saber de outros formatos busque a documentação da biblioteca.
-Alguns carácteres salvos no arquivo json estavam encodados. A solução foi adicionar está
-configuração no setup.py.<br>
-FEED = 'json'
-FEED_EXPORT_ENCODING = 'utf-8'
-<br>
-################# EXECUTANDO O PROJETO ####################
+| Campo | Descrição |
+|---|---|
+| `name` | Nome da coleção |
+| `acronym` | Sigla da coleção |
+| `cards_quantity` | Quantidade de cartas |
+| `lowest_price` | Soma dos menores preços (R$) |
+| `averege_price` | Preço médio da coleção (R$) |
+| `highest_price` | Soma dos maiores preços (R$) |
+| `cards` | Lista detalhada de todas as cartas |
 
-Instale os requerimentos, e execute o script executer.ipynb. Os resultados vão estar na pasta ./scarpcards/datasets.
+## Como funciona
+
+As páginas dos sites renderizam conteúdo dinamicamente via JavaScript. Para confirmar isso, desabilite o JS no navegador via DevTools (`Ctrl+Shift+P` → "Disable JavaScript") e recarregue a página — os dados das cartas desaparecem.
+
+Para contornar isso, o projeto usa **Scrapy-Splash** (via Docker) que renderiza o JavaScript antes de fazer o scraping. Os dados das cartas ficam em uma variável JavaScript `cardsjson` embutida no HTML, extraída via regex após a renderização.
+
+## Pré-requisitos
+
+- Python 3.x
+- Docker instalado e em execução
+
+## Instalação
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/LorranSilva/webscrapingLigaCards.git
+cd webscrapingLigaCards
+
+# 2. Instale as dependências
+pip install -r requirements.txt
+
+# 3. Suba o servidor Splash
+docker pull scrapinghub/splash
+docker run -it -p 8050:8050 --rm docker.io/scrapinghub/splash
+```
+
+## Executando
+
+### Via Notebook
+
+Abra e execute o notebook `notebooks/executer.ipynb`. Os resultados serão salvos em `scrapcards/datasets/`.
+
+### Via linha de comando
+
+```bash
+cd scrapcards
+
+# Pokémon TCG
+scrapy crawl ligapoke -O datasets/ptcg.json
+
+# Magic: The Gathering
+scrapy crawl ligamagic -O datasets/mtg.json
+
+# Yu-Gi-Oh!
+scrapy crawl ligaygo -O datasets/ygo.json
+```
+
+> `-O` sobrescreve o arquivo; `-o` acrescenta ao arquivo existente.
+
+## Comandos úteis do Scrapy
+
+```bash
+# Shell interativo para testar seletores
+scrapy shell
+
+# Testar conexão com o site
+fetch('https://www.ligapokemon.com.br/?view=cards/home')
+
+# Testar seletores CSS
+response.css('.edc-nm-2').get()
+```
